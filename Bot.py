@@ -2,19 +2,24 @@
 
 import discord
 import random
+import logging
 from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
 
+# Log SetUp
+logging.basicConfig(level=logging.INFO, filename='bot.log', filemode="w")
+
+# Bot SetUp
 client = discord.Client()
 intents = discord.Intents().all()
 bot = commands.Bot(command_prefix= '>', intents=intents)
 
 @bot.event
 async def on_ready():
-    print("Allons-y !")
-    print("I'm running on " + bot.user.name)
-    print("with the ID" + str(bot.user.id))
+    logging.info("Allons-y !")
+    logging.info("I'm running on " + bot.user.name)
+    logging.info("with the ID" + str(bot.user.id))
     
 @bot.command(pass_context=True)
 async def Help(ctx):
@@ -30,7 +35,7 @@ async def Help(ctx):
 @bot.command(pass_context=True)
 async def hello(ctx):
     await ctx.send("Hello wonderful perso")
-    print("user has pinged")
+    logging.info("user has pinged")
 
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member):
@@ -51,7 +56,7 @@ async def kick(ctx, user : discord.Member):
 @bot.command(pass_context=True)
 async def settle(ctx, *args: discord.Member):
     win = random.randint(0,len(args) - 1)
-    print("random was " + str(win) + " -> " + args[win].name)
+    logging.info("random was " + str(win) + " -> " + args[win].name)
 
     embed = discord.Embed(color=discord.Colour.orange())
     embed.add_field(name = "The RNG has spoken...".format(args[win].mention), value = args[win].mention + "takes it all !", inline = False)
@@ -64,7 +69,6 @@ def filterOnlyOnline(member):
 async def someone(ctx):
     memb = list(filter(filterOnlyOnline, ctx.guild.members))
     length = len(memb) - 1
-    print(length)
 
     if length <= 0 :
         await ctx.send("No one to ping :c !")
@@ -78,7 +82,7 @@ async def someone(ctx):
         Loto = random.randint(0,length)
 
     #DEBUG
-    print(ctx.message.author.name + " pinged " + memb[Loto].name)
+    logging.info(ctx.message.author.name + " pinged " + memb[Loto].name)
 
     embed = discord.Embed()
     embed.add_field(name = "You have been randomly pinged by {}, have a good day !".format(ctx.message.author.name), value = memb[Loto].mention, inline = False)
@@ -93,8 +97,6 @@ async def cheatox(ctx):
 
 @bot.command(pass_context=True)
 async def clean(ctx, mx: int): 
-
-    print(ctx.message.author.id)
     if (ctx.message.author.id == 155823093544255489):
         await ctx.channel.purge(check=None, limit=mx + 1)
     else:
@@ -109,7 +111,7 @@ async def free_rolls(ctx, mx, rolls: int):
     for i in range(rolls):
         await ctx.send("$" + mx)
         await bot.wait_for("message", check=check)
-    print("Mudae was summoned")
+    logging.info("Mudae was summoned")
 
 @bot.command(pass_context=True)
 async def poll(ctx, *args):
