@@ -24,6 +24,7 @@ async def Help(ctx):
     embed.add_field(name=">someone \"user\"", value ="Tag a connected person of the server, BOT not included.", inline=False)
     embed.add_field(name=">cheatox", value = "no one will notice", inline = False)
     embed.add_field(name=">poll \"choice1\" \"emoji1\" \"choice2\" \"emoji2\" ... ",value = "Make a poll", inline = False)
+    embed.add_field(name=">settle \"list of user\"", value = "Randomly choose one of the user", inline = False)
     await ctx.send(embed=embed)
 
 @bot.command(pass_context=True)
@@ -55,7 +56,6 @@ async def settle(ctx, *args: discord.Member):
     embed = discord.Embed(color=discord.Colour.orange())
     embed.add_field(name = "The RNG has spoken...".format(args[win].mention), value = args[win].mention + "takes it all !", inline = False)
     await ctx.send(embed = embed)
-
 
 def filterOnlyOnline(member):
     return member.status != discord.Status.offline and not member.bot
@@ -111,7 +111,6 @@ async def free_rolls(ctx, mx, rolls: int):
         await bot.wait_for("message", check=check)
     print("Mudae was summoned")
 
-
 @bot.command(pass_context=True)
 async def poll(ctx, *args):
             #should be a "choice 1, emoji 1, choice 2, emoji 2" 
@@ -135,18 +134,15 @@ async def poll(ctx, *args):
                             poll += (args[i] + "  ou  ")
                             count = 0
 
-
                 embed = discord.Embed()
                 embed.add_field(name = poll, value = "asks " + ctx.message.author.name, inline = False)
                 message = await ctx.send(embed = embed)
-                #message = await ctx.send(args[0] + " " +args[1]+ " ou  "+ args[2] + " " +args[3])
                 
                 while k < len(args):
                     await message.add_reaction(args[k])
                     k+=2
 
                 await ctx.message.delete()
-                #args[0] + " " +args[1]+ "  ou  "+ args[2] + " " +args[3]
 
 #secure the token in a specific file
 f = open("token.txt", "r")
