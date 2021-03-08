@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO, filename='bot.log', filemode="w")
 def filterOnlyOnline(member):
     return member.status != discord.Status.offline and not member.bot
 
-class FeaturesCog(commands.Cog):
+class Features(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
@@ -82,4 +82,4 @@ class FeaturesCog(commands.Cog):
                     await ctx.message.delete()
 
 def setup(bot):
-    bot.add_cog(FeaturesCog(bot))
+    bot.add_cog(Features(bot))

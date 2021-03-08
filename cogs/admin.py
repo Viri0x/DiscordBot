@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class AdminCog(commands.Cog):
+class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
@@ -13,4 +13,4 @@ class AdminCog(commands.Cog):
             await ctx.send("You don't have permission to do that !")
 
 def setup(bot):
-    bot.add_cog(AdminCog(bot))
+    bot.add_cog(Admin(bot))

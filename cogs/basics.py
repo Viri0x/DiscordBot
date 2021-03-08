@@ -5,7 +5,7 @@ from discord.ext import commands
 # Log SetUp
 logging.basicConfig(level=logging.INFO, filename='bot.log', filemode="w")
 
-class BasicsCog(commands.Cog):
+class Basics(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
@@ -36,4 +36,4 @@ class BasicsCog(commands.Cog):
         await ctx.send(embed = embed)
 
 def setup(bot):
-    bot.add_cog(BasicsCog(bot))
+    bot.add_cog(Basics(bot))
