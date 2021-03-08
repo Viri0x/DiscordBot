@@ -22,7 +22,7 @@ class Mudae(commands.Cog):
 
         for i in [":three:", ":two:", ":one:"]:
             embed = discord.Embed(color=discord.Colour.orange())
-            embed.add_field(name = "The RNG will spoke in...".format(args[win].mention), value = i, inline = False)
+            embed.add_field(name = "The RNG will speak in...".format(args[win].mention), value = i, inline = False)
             await msg.edit(embed = embed)
             sleep(1)
 
