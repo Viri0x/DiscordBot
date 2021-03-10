@@ -28,24 +28,15 @@ class Admin(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
-        msg = reaction.message
-
-        print(msg.embeds != [])
-        print(msg.embeds[0].title)
-        print(msg.embeds[0].title == "Clean -Warning-")
-        print(self.clean != -1)
-
+        msg = reaction.messages
         users = await reaction.users().flatten()
 
         # Clean messages
         if msg.embeds != [] and msg.embeds[0].title == "Clean -Warning-" and self.clean != -1 and len(users) != 1:
 
-            print("HELLO")
             if reaction.emoji == "\u2705":
-                print("CACA")
                 await msg.channel.purge(check=None, limit=self.clean + 1)
             else:
-                print("COCO")
                 await msg.channel.purge(check=None, limit=1)
             self.clean = -1
 
