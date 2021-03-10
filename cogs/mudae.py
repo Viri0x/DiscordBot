@@ -17,7 +17,6 @@ class Mudae(commands.Cog):
         logging.info("random was " + str(win) + " -> " + args[win].name)
 
         embed = discord.Embed(color=discord.Colour.orange())
-        #embed.add_field(name = "The RNG has spoken...".format(args[win].mention), value = args[win].mention + "takes it all !", inline = False)
         msg = await ctx.send(embed = embed)
 
         for i in [":three:", ":two:", ":one:"]:
@@ -25,7 +24,6 @@ class Mudae(commands.Cog):
             embed.add_field(name = "The RNG will speak in...".format(args[win].mention), value = i, inline = False)
             await msg.edit(embed = embed)
             sleep(1)
-
 
         embed = discord.Embed(color=discord.Colour.orange())
         embed.add_field(name = "The RNG has spoken...".format(args[win].mention), value = ":tada: **" + args[win].mention + "** takes it all ! :tada:", inline = False)
