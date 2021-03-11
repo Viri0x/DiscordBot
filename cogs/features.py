@@ -1,6 +1,7 @@
 import discord
 import logging
 from discord.ext import commands
+import random
 
 
 # Log SetUp
@@ -38,7 +39,7 @@ class Features(commands.Cog):
         logging.info(ctx.message.author.name + " pinged " + memb[Loto].name)
 
         embed = discord.Embed()
-        embed.add_field(name = "You have been randomly pinged by {}, have a good day !".format(ctx.message.author.name), value = memb[Loto].mention, inline = False)
+        embed.add_field(name = "You have been randomly pinged by {}, have a good day !".format(ctx.message.author.name), value = memb[Loto].mention, colors="green", inline = False)
         embed.set_image(url='https://media.giphy.com/media/wrBURfbZmqqXu/giphy.gif')
         await ctx.send(embed = embed)
 
