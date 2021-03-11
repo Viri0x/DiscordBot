@@ -28,7 +28,7 @@ class Admin(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
-        msg = reaction.messages
+        msg = reaction.message
         users = await reaction.users().flatten()
 
         # Clean messages
