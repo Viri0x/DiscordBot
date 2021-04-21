@@ -17,6 +17,7 @@ class Mudae(commands.Cog):
         logging.info("random was " + str(win) + " -> " + args[win].name)
 
         embed = discord.Embed(color=discord.Colour.orange())
+        embed.add_field(name = "The RNG will speak in...".format(args[win].mention), value = ":gift:", inline = False)
         msg = await ctx.send(embed = embed)
 
         for i in [":three:", ":two:", ":one:"]:
