@@ -3,6 +3,9 @@ from discord.ext import commands
 
 admin_id = 155823093544255489
 
+def silly_true(m):
+    return True
+
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -24,7 +27,7 @@ class Admin(commands.Cog):
             await msg.add_reaction("\u2705")
             await msg.add_reaction("\u274c")
         else:
-            await ctx.channel.purge(check=None, limit=mx + 1)
+            await ctx.channel.purge(check=silly_true, limit=mx + 1)
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
@@ -41,5 +44,5 @@ class Admin(commands.Cog):
             self.clean = -1
 
 
-def setup(bot):
-    bot.add_cog(Admin(bot))
+async def setup(bot):
+    await bot.add_cog(Admin(bot))

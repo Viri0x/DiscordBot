@@ -82,5 +82,5 @@ class Features(commands.Cog):
 
                     await ctx.message.delete()
 
-def setup(bot):
-    bot.add_cog(Features(bot))
+async def setup(bot):
+    await bot.add_cog(Features(bot))

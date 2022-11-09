@@ -12,12 +12,13 @@ class Basics(commands.Cog):
     @commands.command()
     async def Help(self, ctx):
         embed = discord.Embed(title="Bot'sy Help", description = "Everything you need to know", color = 0x00ff00)
-        embed.add_field(name=">info \"user\"", value = "Give user's info", inline=False)
-        embed.add_field(name=">kick \"user\"", value ="Kick the hell out of someone", inline=False)
-        embed.add_field(name=">someone \"user\"", value ="Tag a connected person of the server, BOT not included.", inline=False)
+        embed.add_field(name=">info <user>", value = "Give user's info", inline=False)
+        embed.add_field(name=">kick <user>", value ="Kick the hell out of someone", inline=False)
+        embed.add_field(name=">someone <user>", value ="Tag a connected person of the server, BOT not included.", inline=False)
         embed.add_field(name=">cheatox", value = "no one will notice", inline = False)
-        embed.add_field(name=">poll \"choice1\" \"emoji1\" \"choice2\" \"emoji2\" ... ",value = "Make a poll", inline = False)
-        embed.add_field(name=">settle \"list of user\"", value = "Randomly choose one of the user", inline = False)
+        embed.add_field(name=">poll <choice1> <emoji1> <choice2> <emoji2> ... ",value = "Make a poll", inline = False)
+        embed.add_field(name=">settle <list of user>", value = "Randomly choose one of the user", inline = False)
+        embed.add_field(name=">dalle \"<prompt>\" [Optional]<number_pics>", value = "Create a DALL-E generated image from your prompt", inline = False)
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -32,8 +33,8 @@ class Basics(commands.Cog):
         embed.add_field(name="Status", value = user.status, inline=True)
         embed.add_field(name="Highest role", value = user.top_role)
         embed.add_field(name="Joined", value = user.joined_at)
-        embed.set_thumbnail(url= user.avatar_url)
+        embed.set_thumbnail(url= user.avatar.url)
         await ctx.send(embed = embed)
 
-def setup(bot):
-    bot.add_cog(Basics(bot))
+async def setup(bot):
+    await bot.add_cog(Basics(bot))
