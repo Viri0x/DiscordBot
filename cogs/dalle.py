@@ -59,19 +59,30 @@ class Dalle(commands.Cog):
 
         # Send request to Dalle and get image
         prompt = args[0]
-        response = send_dalle_request(prompt, nb_pics=nb_pics)
+        response = {}
+        imgur_response = {}
+        error = None
+        try:
+            response = send_dalle_request(prompt, nb_pics=nb_pics)
+        except openai.error.InvalidRequestError as e:
+            error = e
+        
 
-        logging.info(response)
-        image_url = response['data'][0]['url']
+        if error is None:
+            logging.info(response)
+            image_url = response['data'][0]['url']
 
-        # Upload image to imgur
-        imgur_response = imgur_client.upload_from_url(image_url)
-        logging.info(imgur_response)
+            # Upload image to imgur
+            imgur_response = imgur_client.upload_from_url(image_url)
+            logging.info(imgur_response)
 
         # Create Embedded message to display
         embed = discord.Embed(color=discord.Colour.blue())
         embed.add_field(name = f"Your Dall-e creation for the prompt :", value = prompt, inline = False)
-        embed.set_image(url=imgur_response["link"])
+        if error is not None:
+            embed.add_field(name = "Error", value = error, inline = False)
+        else:
+            embed.set_image(url=imgur_response["link"])
 
         # Display final message
         await ctx.send(embed = embed)
